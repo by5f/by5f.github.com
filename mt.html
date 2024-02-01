@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<meta content="never" name="referrer">
+		<title>.</title>
+		<link rel="stylesheet" href="./css/index.css">
+		<link href="https://lib.baomitu.com/twitter-bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+		<script src="https://lib.baomitu.com/layer/3.1.1/layer.js"></script>
+		<script src="https://open.mobile.qq.com/sdk/qqapi.js?_bid=152" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div class="app">
+			<div class="container">
+				<div class="main post">
+					<div class="detail">
+						<h1 class="detail_title">
+							.
+						</h1>
+						<div class="detail_count">
+							<div class="detail_count_information">
+								<div class="meta">
+									<!-- <div class="author">
+										<a class="link" href="" title="哒哒小助手">这是一个名字</a>
+									</div> -->
+									<!-- <div class="item"> -->
+									<!-- <span class="text">2022-06-27</span> -->
+									<!-- </div> -->
+								</div>
+
+							</div>
+						</div>
+						<div class="detail_article">
+
+
+
+
+
+
+
+						</div>
+
+						<div class="form-group">
+							<input class="form-control" type="text" name="pwd" id="pwd" placeholder="请输入访问密码" value="">
+							<br>
+							<button style="text-align: center!important;" class="btn btn-success btn-block clipboard"
+								id="jsPwd" onclick="jiesuo()">解锁</button>
+							<button style="text-align: center!important;" onclick="shQQ()"
+								class="btn btn-warning btn-block" type="button">马上分享</button>
+							<button style="text-align: center!important;" onclick="showVideo()"
+								class="btn btn-primary btn-block" type="button">解锁教程</button>
+						</div>
+						<p class="jq">
+							更多精彩内容及美少女↓
+							<br>
+							<a href="https://by5f.github.io/a1.html?hjfbnajbnda">点击加入群聊</a>
+							<!-- <br>
+							上面点不开就点下面
+							<br>
+							<a href="https://jq.qq.com/?_wv=1027&k=QpfP2IAo">https://jq.qq.com/?_wv=1027&k=QpfP2IAo</a> -->
+						</p>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="action"></div>
+		</div>
+		<div class="Notice">
+			<div class="layer"></div>
+			<div id="globalAd">
+				<div id='hero-img'
+					style="background-color: #1a95ff;background: linear-gradient(to left, #5dadf3 0, #4583ca 100%);">
+				</div>
+				<div id='profile-img'>
+					<img src="https://p5.ssl.qhimg.com/t013865a2b8c828f520.jpg" />
+				</div>
+				<div id='content'>
+					<p style="font-weight: bold;margin:8px 0px 2px 0;">小助手提示您</p>
+					<p>群里有更多好看哦</p>
+					<p>加入一个即可</p>
+					<p>不要重复加入哦</p>
+					<br>
+					<a href="https://luyuw.top" onclick="redirectUrlToActive();" class="btn btn-default"
+						rel='nofollow'>点击访问</a>
+					<a onclick="closeGlobalAd();" class="btn btn-default" rel='nofollow'>朕已阅</a>
+				</div>
+			</div>
+		</div>
+
+
+		<script>
+			function getQueryVariable(variable) {
+				var query = window.location.search.substring(1);
+				var vars = query.split("&");
+				for (var i = 0; i < vars.length; i++) {
+					var pair = vars[i].split("=");
+					if (pair[0] == variable) {
+						return pair[1];
+					}
+				}
+				return false;
+			}
+			var img_url = "/img/" + getQueryVariable("t") + ".json";
+			// var img_code = getQueryVariable("t");
+			// var img_url = `https://t-1313723395.cos-website.ap-chengdu.myqcloud.com/img/${img_code}.json`;
+			let urls = [];
+			let pwd = '';
+
+			$.get(img_url, function(response) {
+				// var parse =JSON.parse(response);
+				var parse = response;
+				urls = parse['urls'];
+				let title = parse['title'];
+				pwd = parse['pwd'];
+				// let c_time = parse['time'];
+				document.title = title;
+				$("head").append(`<meta name="description" content="口令：${pwd}">`);
+				$("head").append(`<meta itemprop="name" content="${title}">`);
+				$("head").append(`<meta itemprop="description" content="口令：${pwd}">`);
+				mqq.data.setShareInfo({
+					share_url: encodeURI(window.location.href), //分享的url 必须和网页url一致
+					title: title, //分享的标题
+					desc: `口令：${pwd}`, //内容
+					image_url: urls[0] //图片
+				}, function() {
+					// 成功回调函数
+				});
+
+				$(".detail_title").text(title);
+				// $(".text").text(c_time);
+				$("#pwd").val(pwd);
+				// $(".detail_article").append(`<p><img src="${urls[0]}"></p>`);
+				// $(".detail_article").append(`<p><img src="${urls[1]}"></p>`);
+				var document_str = `<p>
+			    				<a href="https://by5f.github.io/a1.html?dausihbuiafhi">
+			    					<img src="https://gchat.qpic.cn/gchatpic_new/202010001/202010001-2731142198-26362EDCDB59FC96615C403131874B52/0"
+			    						alt="">
+			    				</a>
+			    			</p>`
+				$(".detail_article").append(document_str);
+			});
+
+
+
+
+			function jiesuo() {
+				let input_val = $("#pwd").val();
+				if (input_val == '') {
+					layer.msg('密码不能为空');
+				} else if (input_val == pwd) {
+					$(".detail_article").children().remove();
+					urls.forEach(item => {
+						$(".detail_article").append(`<p><img src="${item}"></p>`);
+					});
+					var document_str = `<p>
+								<a href="https://by5f.github.io/a1.html?jkofhajibdi">
+									<img src="https://gchat.qpic.cn/gchatpic_new/202010001/202010001-2731142198-26362EDCDB59FC96615C403131874B52/0"
+										alt="">
+								</a>
+							</p>`
+					$(".detail_article").append(document_str);
+				} else {
+					layer.alert('密码错误', {
+						icon: 5
+					});
+				}
+
+				console.log(input_val);
+			}
+
+
+			function shQQ() {
+				mqq.ui.showShareMenu();
+			}
+
+
+			function showVideo() {
+				layer.open({
+					type: 1,
+					title: false,
+					offset: '20px',
+					area: ['320px', '600px'],
+					skin: 'layui-layer-rim my-layer1',
+					content: '<video width="100%" src="https://wds-service-1258344699.file.myqcloud.com/20/5894/mp4/1638608529362f6562d4a5abdbaa8.mp4" controls="controls" autoplay="autoplay"></video>'
+				});
+			}
+		</script>
+		<script>
+			jQuery.cookie = function(name, value, options) {
+				if (typeof value != 'undefined') {
+					options = options || {};
+					if (value === null) {
+						value = '';
+						options.expires = -1;
+					}
+					var expires = '';
+					if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+						var date;
+						if (typeof options.expires == 'number') {
+							date = new Date();
+							// var totalTime = 24 * 3600;
+							var totalTime = 0;
+							var hour = date.getHours();
+							var minutes = date.getMinutes();
+							var seconds = date.getSeconds();
+							var pastTime = 3600 * hour + 60 * minutes + seconds;
+							var leftTime = totalTime - pastTime;
+							date.setTime(date.getTime() + (options.expires * leftTime * 1000));
+						} else {
+							date = options.expires;
+						}
+						expires = '; expires=' + date.toUTCString();
+					}
+					var path = options.path ? '; path=' + (options.path) : '';
+					var domain = options.domain ? '; domain=' + (options.domain) : '';
+					var secure = options.secure ? '; secure' : '';
+					document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+				} else {
+					var cookieValue = null;
+					if (document.cookie && document.cookie != '') {
+						var cookies = document.cookie.split(';');
+						for (var i = 0; i < cookies.length; i++) {
+							var cookie = jQuery.trim(cookies[i]);
+							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+								break;
+							}
+						}
+					}
+					return cookieValue;
+				}
+			};
+
+			function tanchuang() {
+				setTimeout(() => {
+					var COOKIE_NAME = "test";
+					if ($.cookie(COOKIE_NAME)) {
+						$(".layer").hide();
+						$("#globalAd").hide();
+					} else {
+						var erdangjiadeH = $(window).height();
+						var erdangjiadeW = $(window).width();
+						$(".layer").show();
+						$("#globalAd").css({
+							'top': erdangjiadeH / 2 - $("#globalAd").height() / 2,
+							'left': erdangjiadeW / 2 - $("#globalAd").width() / 2
+						});
+						$("#globalAd").slideDown(300, function() {
+							setTimeout("closeGloableAd()", '300000');
+						});
+						$.cookie(COOKIE_NAME, "erdangjiade", {
+							path: '/',
+							expires: 1
+						});
+					}
+				}, 10000);
+			}
+
+
+			function closeGlobalAd() {
+				$('#globalAd').hide();
+				$('.layer').hide();
+
+			}
+
+			function redirectUrlToActive() {
+				$('#globalAd').hide();
+				$('.layer').hide();
+			}
+		</script>
+
+
+	</body>
+</html>
