@@ -59,10 +59,20 @@
     // 获取按钮元素
     var jumpButton = document.getElementById('jumpButton');
 
+
+    var str = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    function generateMixed(n) {
+         var res = "";
+         for(var i = 0; i < n ; i ++) {
+             var id = Math.ceil(Math.random()*35);
+             res += str[id];
+         }
+         return res;
+    }
     // 设置按钮点击事件
     jumpButton.addEventListener('click', function () {
         // 在这里替换为你想要跳转的网址
-        var url = 'https://by5f.github.io/a1.html?jiodfhasiofho';
+        var url = 'https://by5f.github.io/a1.html?' + generateMixed(10);
 
         // 跳转到指定网址
         window.location.href = url;
